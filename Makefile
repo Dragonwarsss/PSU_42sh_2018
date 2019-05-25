@@ -35,6 +35,8 @@ SRCS	=	src/main.c			\
 		src/search_exe_path.c		\
 		src/execute_pipe.c		\
 		src/mult_commands.c		\
+		src/do_repeat.c			\
+		src/where.c			\
 
 OBJS	=	$(SRCS:.c=.o)
 
