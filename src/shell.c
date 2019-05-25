@@ -8,8 +8,22 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
 #include "my.h"
 #include "env.h"
+
+int builtin2(char **arr)
+{
+    if (!strcmp(arr[0], "repeat")) {
+        do_repeat(arr);
+        return (1);
+    }
+    if (!strcmp(arr[0], "where")) {
+        where(arr);
+        return (1);
+    }
+    return (0);
+}
 
 int builtin(char *str)
 {
@@ -31,7 +45,7 @@ int builtin(char *str)
             exit(my_atoi(arr[1]));
         exit(0);
     }
-    if (builtin_env(arr))
+    if (builtin2(arr) || builtin_env(arr))
         return (1);
     return (0);
 }
