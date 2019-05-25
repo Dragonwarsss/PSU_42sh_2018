@@ -21,7 +21,7 @@ static int mult_sep(char **sep)
             !strcmp(*sep, "&&") || !strcmp(*sep, "||"))
             count += 1;
     }
-    if (count > 1)
+    if (count > 0)
         return (1);
     return (0);
 }
