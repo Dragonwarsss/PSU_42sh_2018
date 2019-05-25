@@ -13,7 +13,9 @@
 int is_sep(char *str)
 {
     if (my_strcomp(str, ">") || my_strcomp(str, "|") ||
-        my_strcomp(str, ">>") || my_strcomp(str, ";"))
+        my_strcomp(str, ">>") || my_strcomp(str, ";") ||
+        !strcmp(str, "<") || !strcmp(str, "<<") || !strcmp(str, "&&") ||
+        !strcmp(str, "||"))
         return (1);
     return (0);
 }
