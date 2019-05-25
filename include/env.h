@@ -58,5 +58,6 @@ void random_func(int sig);
 void copy_user(char **env);
 void copy_env(char **env);
 void top_kek(char *str);
+void do_repeat(char **arr);
 
 #endif
