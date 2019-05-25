@@ -34,6 +34,7 @@ SRCS	=	src/main.c			\
 		src/execute_semi.c		\
 		src/search_exe_path.c		\
 		src/execute_pipe.c		\
+		src/top_kek.c			\
 
 OBJS	=	$(SRCS:.c=.o)
 

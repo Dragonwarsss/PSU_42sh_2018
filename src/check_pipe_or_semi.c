@@ -6,54 +6,35 @@
 */
 
 #include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 #include "my.h"
 #include "env.h"
 
-static void free_tmp(char *str, char **tab)
+static int mult_sep(char **sep)
 {
-    free(str);
-    for (int i = 0; tab[i]; i += 1)
-        free(tab[i]);
-    free(tab);
-}
+    int count = 0;
 
-static char ***get_args(char *str)
-{
-    char ***mult;
-    char **tab;
-    char *copy = my_strdup(str);
-    int many_sep = 0;
-
-    tab = my_str_to_word_array(copy);
-    for (int i = 0; copy[i]; i += 1)
-        if (copy[i] == ';' || copy[i] == '|')
-            many_sep += 1;
-    mult = malloc(sizeof(char**) * (many_sep + 2));
-    mult[many_sep + 1] = NULL;
-    for (int i = 0; i != many_sep + 1; i += 1) {
-        mult[i] = my_str_to_word_array(copy);
-        mult[i] = keep_correct_args(mult[i], i);
+    for (int i = 0; sep[i]; i += 1) {
+        if (!strcmp(*sep, "|") || !strcmp(*sep, ";") || !strcmp(*sep, ">") ||
+            !strcmp(*sep, ">>") || !strcmp(*sep, "<") || !strcmp(*sep, "<<") ||
+            !strcmp(*sep, "&&") || !strcmp(*sep, "||"))
+            count += 1;
     }
-    free_tmp(copy, tab);
-    return (mult);
+    if (count > 1)
+        return (1);
+    return (0);
 }
 
 int check_pipe_or_semi(char *str)
 {
     char **sep = keep_correct_sep(my_str_to_word_array(str));
-    char ***args;
 
     if (!sep[0]) {
         return (0);
     }
-    if (only_semi(sep)) {
-        args = get_args(str);
-        execute_semi(args);
-        return (1);
-    }
-    else if (only_pipe(sep)) {
-        args = get_args(str);
-        execute_pipe(args);
+    if (only_semi(sep) || only_pipe(sep) || mult_sep(sep)) {
+        top_kek(str);
         return (1);
     }
     return (0);

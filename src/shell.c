@@ -46,6 +46,8 @@ void manage_command(void)
     str = gnl(0);
     if (!str)
         exit(0);
+    if (check_pipe_or_semi(str))
+        return;
     stat = builtin(str);
     if (stat)
         return;
