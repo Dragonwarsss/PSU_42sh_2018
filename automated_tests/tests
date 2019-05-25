@@ -1,0 +1,8 @@
+TEST status 0
+
+echo -e "hi" | ../42sh
+echo -e "ls -l" | ../42sh
+echo -e "cd .." | ../42sh
+TEST status 84
+
+echo -e "exit 84" | ../42sh
